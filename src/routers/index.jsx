@@ -7,15 +7,6 @@ const routers = [
         path:'/', 
         element:< Login />
     },  
-    // {
-    //     path:'/',
-    //     element:""
-    // },
-    // {
-    //     path: '/',
-    //     element:"<PDFview />"
-        
-    // },
 ]
 
 

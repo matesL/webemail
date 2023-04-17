@@ -14,10 +14,10 @@ function Login() {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     const data={
-      username:"ssss",
-      password:123
+      username:username,
+      password:password
     }
     login(data).then(res=>{
         console.log(res);
@@ -33,14 +33,17 @@ function Login() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label style={{marginRight: '10px'}}>
+     <span> <label style={{marginRight: '10px'}}>
         账号:
         <input type="text" value={username} onChange={handleUsernameChange} />
       </label>
-      <label style={{marginRight: '10px'}}>
+      < br />
+      </span>
+      <span> <label style={{marginRight: '10px'}}>
         密码:
         <input type="password" value={password} onChange={handlePasswordChange} />
       </label>
+      </span>
       <button type="submit" style={{marginRight: '10px'}}>{isRegistering ? "注册" : "登录"}</button>
       <button type="button" onClick={() => setIsRegistering(!isRegistering)}>
         {isRegistering ? "已有账号？立即登录" : "暂无账号? 注册"}
