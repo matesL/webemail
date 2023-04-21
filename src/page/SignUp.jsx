@@ -4,8 +4,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -13,13 +12,13 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { login } from "../api/login";
+import {singup} from "../api/login"
 import history from '../routers/history';
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'E-mail © '}
+      {'Copyright © '}
       <Link color="inherit" href="">
         Your Website
       </Link>{' '}
@@ -31,27 +30,29 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
-  const handleSubmit = async (event) => {
+export default function SignUp() {
+  const handleSubmit =async (event) => {
     event.preventDefault();
-    const datas= new FormData(event.currentTarget);
-   const data= {
+    const datas = new FormData(event.currentTarget);
+    const data= {
       username: datas.get('username'),
+      Email:datas.get("email"),
       password: datas.get('password'),
     };
-    
-    login(data).then(res=>{
+    singup(data).then(res=>{
+      console.log(res,"ssss");
       if (res.data.code===200) {
+
         alert(res.data.msg)
-        window.localStorage.setItem('token',res.data.token) || window.sessionStorage.setItem('token',res.data.token);
-        history.replace({ pathname: "#/index", state: {} })
+        history.replace({ pathname: "/", state: {} })
         history.go(0)
       }
       else{
         alert(res.data.msg)
       }
       console.log(res);
-  })
+    })
+
   };
 
   return (
@@ -70,56 +71,61 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            登录
+            注册
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="账号"
-              name="username"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="密码"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="记住账号"
-            />
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="username"
+                  label="用户名"
+                  name="username"
+                  autoComplete="username"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="邮箱或账号"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="密码"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+            
+            </Grid>
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              登录
+              注册
             </Button>
-            <Grid container>
-              <Grid item xs>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
                 <Link href="#" variant="body2">
-                  忘记密码
-                </Link>
-              </Grid>
-              <Grid item> 
-                <Link href="#/singup" variant="body2">
-                  {"没有账号立即？立即注册"}
+                  已有账号！ 立即登录
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );

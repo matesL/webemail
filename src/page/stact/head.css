@@ -1,0 +1,19 @@
+.heand{
+ 
+    margin-top: 10px;
+    /* padding-top: 1px; */
+    /* border-bottom: 0cap; */
+    /* height: 10px; */
+    width: 900px;
+}
+.heand2 {
+    
+    width: 900px;
+    height: 800px;
+    background-color:azure;
+   
+}
+.bottom{
+    font: 1em sans-serif;
+  padding-top: 700px;
+}
