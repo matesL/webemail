@@ -43,7 +43,8 @@ export default function SignIn() {
     login(data).then(res=>{
       if (res.data.code===200) {
         alert(res.data.msg)
-        window.localStorage.setItem('token',res.data.token) || window.sessionStorage.setItem('token',res.data.token);
+        window.localStorage.setItem('token',res.data.token,"id",res.data.userInfo.id) || window.sessionStorage.setItem('token',res.data.token);
+        window.localStorage.setItem("id",res.data.userInfo.id) 
         history.replace({ pathname: "#/index", state: {} })
         history.go(0)
       }

@@ -17,3 +17,22 @@
     font: 1em sans-serif;
   padding-top: 700px;
 }
+
+.select{
+    width: 400px;
+    height: 47px;
+    margin-top: 25px;
+    text-align: center
+}
+.fuli1{
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+.fuli2{
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+.fuli3{
+    margin-top: 15px;
+    margin-bottom: 20px;
+}

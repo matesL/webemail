@@ -4,7 +4,7 @@ import Login from '../page/Login'
 import Index from '../page/index'
 import SignUp from '../page/SignUp'
 import AddEmails from '../page/AddEmails'
-import Sendemail from '../page/temple/sendemail'
+import Sendemail from '../page/sendmail'
 const routers = [
     {
         path:'/', 

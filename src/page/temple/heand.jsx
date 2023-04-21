@@ -13,6 +13,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import "../stact/head.css"
+import history from '../routers/history.jsx';
+
 
 const pages = ['发送邮件', '历史', '收件箱'];
 const settings = [' 头像', '关于', '设置', '退出登录'];
@@ -22,17 +24,34 @@ function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
+   
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
+
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const handleCloseNavMenu = (index) => {
+   
+    // console.log(e.target.key);
+    // alert("1")
+
+    if( index==1  ){
+        history.replace({ pathname: "#/index", state: {} })
+        history.go(0)
+       
+    }
+    if( index==0 ){
+      history.replace({ pathname: "#/sendemail", state: {} })
+      history.go(0)
+     
+  }
+    
   };
 
   const handleCloseUserMenu = () => {
+
     setAnchorElUser(null);
   };
 
@@ -45,7 +64,7 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href="#"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -56,45 +75,10 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            个人邮箱
+           个人邮箱
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+           
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
@@ -115,13 +99,13 @@ function ResponsiveAppBar() {
             邮件
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {pages.map((value,index)=> (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                key={index} 
+                onClick={()=>handleCloseNavMenu(index)}
+                sx={{ my: 3, color: 'white', display: 'block' }}
               >
-                {page}
+                {value}
               </Button>
             ))}
           </Box>
@@ -129,7 +113,8 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                {/* 头像 */}
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -148,8 +133,8 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+              {settings.map((setting,Index) => (
+                <MenuItem key={setting}  onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

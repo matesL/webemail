@@ -3,6 +3,7 @@ import PrimarySearchAppBar from "./temple/heand"
 import Table from "./temple/table"
 import "./stact/head.css"
 import { get_listmail } from '../api/login'
+import SendForm from './temple/sendemail'
  function Index() {
     const [rows,setRows]=useState([]);
     const data={
@@ -30,7 +31,7 @@ import { get_listmail } from '../api/login'
                 </div>
                 <div className="heand2" >
                 <div >
-                    <Table datalist={rows}/>
+                    <SendForm datalist={rows}/>
                 </div>
                 </div>
             </div>

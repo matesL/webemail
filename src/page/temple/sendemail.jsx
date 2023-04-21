@@ -1,101 +1,75 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { useTheme } from '@mui/material/styles';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import "../stact/head.css"
+import {request_mail} from '/Users/lucky/Desktop/毕业论文/代码/webemail/src/api/login.js'
+export default function MultipleSelectPlaceholder() {
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
 
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
-
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
+ const [title,setTitle]=React.useState("");
+ const [to_email,setTo_email]=React.useState("");
+ const [message,setMessage]=React.useState("");
+ const [type,setType]=React.useState("");
+ const [sendtime,setSendtime]=React.useState("");
+ const dataselects=['普通文本','附件']
+ const onTitle=(e)=>{
+  console.log(e.target.value);
+  setTitle(e.target.value)
+ }
+ const onToemail=(e)=>{
+  setTo_email(e.target.value)
+ }
+ const onMesaage=(e)=>{
+  setMessage(e.target.value)
+ }
+ const onSelect =(index)=>{
+  setType(index)
+  console.log(type);
+}
+const onShendti=async(e)=>{
+  const data={
+    "title":title,
+    'to_email':to_email,
+    'message':message,
+    'type':1,
+    'send_email':"2064058933@qq.com",
+    "sendtime":Date.now()
+  }
+await request_mail(data).then(res=>{
+  console.log(res);
+})
 }
 
-export default function MultipleSelectPlaceholder() {
-  const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
-
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
-  };
-
   return (
-    <div>
-      <FormControl sx={{ m: 1, width: 300, mt: 3 }}>
-        <Select
-          multiple
-          displayEmpty
-          value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput />}
-          renderValue={(selected) => {
-            if (selected.length === 0) {
-              return <em>Placeholder</em>;
-            }
-            return selected.join(', ');
-          }}
-          MenuProps={MenuProps}
-          inputProps={{ 'aria-label': 'Without label' }}
-        >
-          <MenuItem disabled value="">
-            <em>Placeholder</em>
-          </MenuItem>
-          {names.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
-            >
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <Box
-      sx={{
-        width: 500,
-        maxWidth: '100%',
-      }}
-    >
+    <div className='sendmail'> 
+    
+          邮件发送
         {/* 收件人 */}
-      <TextField fullWidth label="收件人" id="fullWidth" />
-    </Box>
+        <div className='fuli1'>
+        <TextField fullWidth label="邮件标题" id="fullWidth"  onChange={onTitle} id=''/>
+        </div>
+        <div className='fuli2'>
+        <TextField fullWidth label="收件人" id="fullWidth" onChange={onToemail}/>
+        </div>
+        <div className='fuli2'>
+        <TextField fullWidth label="邮件内容" id="fullWidth" onChange={onMesaage}/>
+        </div>
+     
+     <select className='select' >
+     {dataselects.map((dataselect,index)=>( <option key={index} onClick={()=>onSelect(index)}>
+      {dataselect}
+      </option>
+     ))}
+      </select>
+     <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={onShendti}
+      >
+              发送
+            </Button>
     </div>
   );
 }
